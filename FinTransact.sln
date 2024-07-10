@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Microservices", "Microservices", "{02F12AAC-5258-4317-B01D-54F029625142}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinTransact.AuthAPI", "FinTransact.AuthAPI\FinTransact.AuthAPI.csproj", "{62741B0F-36E9-4EF8-86DE-50F5D98E2B88}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{62741B0F-36E9-4EF8-86DE-50F5D98E2B88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62741B0F-36E9-4EF8-86DE-50F5D98E2B88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62741B0F-36E9-4EF8-86DE-50F5D98E2B88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62741B0F-36E9-4EF8-86DE-50F5D98E2B88}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{62741B0F-36E9-4EF8-86DE-50F5D98E2B88} = {02F12AAC-5258-4317-B01D-54F029625142}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4C587A61-6C40-4816-8E45-74073F3ED66E}
+	EndGlobalSection
+EndGlobal
