@@ -1,0 +1,36 @@
+{
+  "Routes": [
+
+    //{
+    //  "DownstreamPathTemplate": "/api/Users",
+    //  "DownstreamScheme": "https",
+    //  "DownstreamHostAndPorts": [
+    //    {
+    //      "Host": "localhost",
+    //      "Port": 7001
+    //    }
+    //  ],
+    //  "UpstreamPathTemplate": "/api/Users",
+    //  "UpstreamHttpMethod": [ "GET" ]
+
+    //}
+
+    {
+      "UpstreamPathTemplate": "/api/{catchAll}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamPathTemplate": "/api/{catchAll}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7001
+        }
+      ]
+      //"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "Bearer"
+      //}
+    }
+
+
+  ]
+}
