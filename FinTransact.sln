@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinTransact.AuthAPI", "FinT
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateway", "ApiGateway", "{A826E09F-3573-4CD4-BE40-B64401A39CC9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinTransact.Gateway", "FinTransact.Gateway\FinTransact.Gateway.csproj", "{11CA3B77-8BC7-4273-9CA4-30F8AC56AD3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinTransact.Gateway", "FinTransact.Gateway\FinTransact.Gateway.csproj", "{11CA3B77-8BC7-4273-9CA4-30F8AC56AD3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinTransact.TransactionAPI", "FinTransact.TransactionAPI\FinTransact.TransactionAPI.csproj", "{C45D1487-50A8-4EC9-8C3D-E7E2FF10A0DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +27,10 @@ Global
 		{11CA3B77-8BC7-4273-9CA4-30F8AC56AD3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11CA3B77-8BC7-4273-9CA4-30F8AC56AD3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11CA3B77-8BC7-4273-9CA4-30F8AC56AD3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C45D1487-50A8-4EC9-8C3D-E7E2FF10A0DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C45D1487-50A8-4EC9-8C3D-E7E2FF10A0DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C45D1487-50A8-4EC9-8C3D-E7E2FF10A0DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C45D1487-50A8-4EC9-8C3D-E7E2FF10A0DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +38,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{62741B0F-36E9-4EF8-86DE-50F5D98E2B88} = {02F12AAC-5258-4317-B01D-54F029625142}
 		{11CA3B77-8BC7-4273-9CA4-30F8AC56AD3D} = {A826E09F-3573-4CD4-BE40-B64401A39CC9}
+		{C45D1487-50A8-4EC9-8C3D-E7E2FF10A0DE} = {02F12AAC-5258-4317-B01D-54F029625142}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4C587A61-6C40-4816-8E45-74073F3ED66E}
