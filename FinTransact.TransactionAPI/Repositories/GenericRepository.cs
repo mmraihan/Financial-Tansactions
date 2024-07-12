@@ -1,6 +1,7 @@
 ﻿using FinTransact.TransactionAPI.Data;
 using FinTransact.TransactionAPI.Entities;
 using FinTransact.TransactionAPI.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace FinTransact.TransactionAPI.Repositories
 {
@@ -12,31 +13,47 @@ namespace FinTransact.TransactionAPI.Repositories
             _context = context;
         }
 
-        public Task<T> GetByIdAsync(int id)
+        public async Task<T> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Set<T>().FindAsync(id);
         }
 
-        public Task<IReadOnlyList<T>> ListAllAsync()
+        public async Task<IReadOnlyList<T>> ListAllAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Set<T>().ToListAsync();
         }
 
-        public Task<bool> AddAsync(T entity)
+        public async Task<bool> AddAsync(T entity)
         {
-            throw new NotImplementedException();
+            await _context.Set<T>().AddAsync(entity);
+            return await SaveChangesAsync();
         }
 
-        public Task<bool> UpdateAsync(T entity)
+        public async Task<bool> UpdateAsync(T entity)
         {
-            throw new NotImplementedException();
+            _context.Set<T>().Update(entity);
+            return await SaveChangesAsync();
         }
 
-        public Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var entity = await GetByIdAsync(id);
+            if (entity == null) return false;
+
+            _context.Set<T>().Remove(entity);
+            return await SaveChangesAsync();
         }
 
-       
+        #region Private Method
+
+        private async Task<bool> SaveChangesAsync()
+        {
+            return await _context.SaveChangesAsync() > 0;
+        }
+
+        #endregion
+
+
+
     }
 }

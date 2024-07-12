@@ -1,4 +1,5 @@
 using FinTransact.TransactionAPI.Data;
+using FinTransact.TransactionAPI.Helpers;
 using FinTransact.TransactionAPI.Interfaces;
 using FinTransact.TransactionAPI.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,8 @@ builder.Services.AddDbContext<DataContext>(options =>
 });
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+builder.Services.AddAutoMapper(typeof(MappingProfiles));
 
 var app = builder.Build();
 
