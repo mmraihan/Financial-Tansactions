@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FinTransact.TransactionAPI.Dtos.BankAccount;
 using FinTransact.TransactionAPI.Entities;
+using FinTransact.TransactionAPI.ExceptionHandler.Model;
 using FinTransact.TransactionAPI.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,6 +19,7 @@ namespace FinTransact.TransactionAPI.Controllers
             _mapper = mapper;
         }
 
+ 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ReturnBankAccountDto>>> GetBankAccounts()
         {
@@ -26,6 +28,7 @@ namespace FinTransact.TransactionAPI.Controllers
             return Ok(accountDtos);
         }
 
+   
         [HttpGet("{id}")]
         public async Task<ActionResult<ReturnBankAccountDto>> GetBankAccount(int id)
         {
@@ -33,13 +36,14 @@ namespace FinTransact.TransactionAPI.Controllers
 
             if (account == null)
             {
-                return NotFound();
+                return NotFound(new ApiResponse(404));
             }
 
             var accountDto = _mapper.Map<ReturnBankAccountDto>(account);
             return Ok(accountDto);
         }
 
+      
         [HttpPost]
         public async Task<ActionResult<ReturnBankAccountDto>> PostBankAccount(AddBankAccountDto addBankAccountDto)
         {
@@ -48,20 +52,19 @@ namespace FinTransact.TransactionAPI.Controllers
 
             if (!result)
             {
-                return BadRequest("Unable to add the bank account.");
+                return BadRequest(new ApiResponse(400, "Unable to add the bank account."));
             }
 
             var returnBankAccountDto = _mapper.Map<ReturnBankAccountDto>(bankAccount);
             return CreatedAtAction(nameof(GetBankAccount), new { id = returnBankAccountDto.Id }, returnBankAccountDto);
         }
 
-
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBankAccount(int id, UpdateBankAccountDto updateBankAccountDto)
         {
             if (id != updateBankAccountDto.Id)
             {
-                return BadRequest("ID mismatch.");
+                return BadRequest(new ApiResponse(400, "ID mismatch."));
             }
 
             var bankAccount = _mapper.Map<BankAccount>(updateBankAccountDto);
@@ -69,7 +72,7 @@ namespace FinTransact.TransactionAPI.Controllers
 
             if (!result)
             {
-                return BadRequest("Unable to update the bank account.");
+                return BadRequest(new ApiResponse(400, "Unable to update the bank account."));
             }
 
             return NoContent();
@@ -82,7 +85,7 @@ namespace FinTransact.TransactionAPI.Controllers
 
             if (!result)
             {
-                return BadRequest("Unable to delete the bank account.");
+                return BadRequest(new ApiResponse(400, "Unable to delete the bank account."));
             }
 
             return NoContent();

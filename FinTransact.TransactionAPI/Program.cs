@@ -1,4 +1,5 @@
 using FinTransact.TransactionAPI.Data;
+using FinTransact.TransactionAPI.ExceptionHandler.Middleware;
 using FinTransact.TransactionAPI.Helpers;
 using FinTransact.TransactionAPI.Interfaces;
 using FinTransact.TransactionAPI.Repositories;
@@ -24,12 +25,11 @@ builder.Services.AddAutoMapper(typeof(MappingProfiles));
 
 var app = builder.Build();
 
+app.UseMiddleware<ExceptionMiddleware>(); //Custom Middleware
+
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
