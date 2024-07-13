@@ -19,14 +19,14 @@ namespace FinTransact.TransactionAPI.Controllers
             _transactionRepository = transactionRepository;
         }
 
-        [HttpGet]
+        [HttpGet("get-all-transactions")]
         public async Task<ActionResult<IEnumerable<ReturnTransactionDto>>> GetTransactions()
         {
             var transactions = await _transactionRepository.GetTransactionListWithAssociteData();
             return Ok(transactions);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("get-transaction/{id}")]
         public async Task<ActionResult<ReturnTransactionDto>> GetTransactionById(int id)
         {
             var transaction = await _transactionRepository.GetTransactionByIdWithAssociateData(id);
@@ -34,12 +34,11 @@ namespace FinTransact.TransactionAPI.Controllers
             {
                 return NotFound(new ApiResponse(404));
             }
-
             return Ok(transaction);
         }
 
-        [HttpPost]
-        public async Task<ActionResult<ReturnTransactionDto>> PostTransaction(AddTransactionDto addTransactionDto)
+        [HttpPost("add-transaction")]
+        public async Task<ActionResult<ReturnTransactionDto>> AddTransaction(AddTransactionDto addTransactionDto)
         {
             var transaction = _mapper.Map<Transaction>(addTransactionDto);
             var result = await _genericTransactionRepository.AddAsync(transaction);
@@ -53,7 +52,7 @@ namespace FinTransact.TransactionAPI.Controllers
             return CreatedAtAction(nameof(GetTransactionById), new { id = returnTransactionDto.Id }, returnTransactionDto);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("update-transaction/{id}")]
         public async Task<IActionResult> PutTransaction(int id, UpdateTransactionDto updateTransactionDto)
         {
             if (id != updateTransactionDto.Id)

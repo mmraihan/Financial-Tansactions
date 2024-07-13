@@ -20,7 +20,7 @@ namespace FinTransact.TransactionAPI.Controllers
         }
 
  
-        [HttpGet]
+        [HttpGet("get-all-bankAccounts")]
         public async Task<ActionResult<IReadOnlyCollection<ReturnBankAccountDto>>> GetBankAccounts()
         {
             var accounts = await _bankAccountRepository.ListAllAsync();
@@ -29,7 +29,7 @@ namespace FinTransact.TransactionAPI.Controllers
         }
 
    
-        [HttpGet("{id}")]
+        [HttpGet("get-bankAccount/{id}")]
         public async Task<ActionResult<ReturnBankAccountDto>> GetBankAccount(int id)
         {
             if (id <= 0)
@@ -47,7 +47,7 @@ namespace FinTransact.TransactionAPI.Controllers
             return Ok(accountDto);
         }
 
-        [HttpPost]
+        [HttpPost("add-bankAccount")]
         public async Task<ActionResult<ReturnBankAccountDto>> PostBankAccount(AddBankAccountDto addBankAccountDto)
         {
 
@@ -71,7 +71,7 @@ namespace FinTransact.TransactionAPI.Controllers
         }
 
 
-        [HttpPut("{id}")]
+        [HttpPut("update-bankAccount/{id}")]
         public async Task<IActionResult> PutBankAccount(int id, UpdateBankAccountDto updateBankAccountDto)
         {
             if (id != updateBankAccountDto.Id)
