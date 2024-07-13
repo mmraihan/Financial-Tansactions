@@ -3,54 +3,54 @@ using FinTransact.TransactionAPI.Dtos.Transaction;
 using FinTransact.TransactionAPI.Entities;
 using FinTransact.TransactionAPI.ExceptionHandler.Model;
 using FinTransact.TransactionAPI.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinTransact.TransactionAPI.Controllers
 {
     public class TransactionController : BaseApiController
     {
-        private readonly IGenericRepository<Transaction> _transactionRepository;
+        private readonly IGenericRepository<Transaction> _genericTransactionRepository;
+        private readonly ITransactionRepository _transactionRepository;
         private readonly IMapper _mapper;
-        public TransactionController(IGenericRepository<Transaction> transactionRepository)
+        public TransactionController(IGenericRepository<Transaction> genericTransactionRepository,  ITransactionRepository transactionRepository, IMapper mapper)
         {
+            _genericTransactionRepository = genericTransactionRepository;
+            _mapper = mapper;
             _transactionRepository = transactionRepository;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ReturnTransactionDto>>> GetTransactions()
         {
-            var transactions = await _transactionRepository.ListAllAsync();
-            var transactionDtos = _mapper.Map<IEnumerable<ReturnTransactionDto>>(transactions);
-            return Ok(transactionDtos);
+            var transactions = await _transactionRepository.GetTransactionListWithAssociteData();
+            return Ok(transactions);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ReturnTransactionDto>> GetTransaction(int id)
+        public async Task<ActionResult<ReturnTransactionDto>> GetTransactionById(int id)
         {
-            var transaction = await _transactionRepository.GetByIdAsync(id);
+            var transaction = await _transactionRepository.GetTransactionByIdWithAssociateData(id);
             if (transaction == null)
             {
                 return NotFound(new ApiResponse(404));
             }
 
-            var transactionDto = _mapper.Map<ReturnTransactionDto>(transaction);
-            return Ok(transactionDto);
+            return Ok(transaction);
         }
 
         [HttpPost]
         public async Task<ActionResult<ReturnTransactionDto>> PostTransaction(AddTransactionDto addTransactionDto)
         {
             var transaction = _mapper.Map<Transaction>(addTransactionDto);
-            var result = await _transactionRepository.AddAsync(transaction);
+            var result = await _genericTransactionRepository.AddAsync(transaction);
 
             if (!result)
             {
-                return BadRequest(new ApiResponse(400, "Unable to add the transaction."));
+                return BadRequest(new ApiResponse(400));
             }
 
             var returnTransactionDto = _mapper.Map<ReturnTransactionDto>(transaction);
-            return CreatedAtAction(nameof(GetTransaction), new { id = returnTransactionDto.Id }, returnTransactionDto);
+            return CreatedAtAction(nameof(GetTransactionById), new { id = returnTransactionDto.Id }, returnTransactionDto);
         }
 
         [HttpPut("{id}")]
@@ -58,15 +58,15 @@ namespace FinTransact.TransactionAPI.Controllers
         {
             if (id != updateTransactionDto.Id)
             {
-                return BadRequest(new ApiResponse(400, "ID mismatch."));
+                return BadRequest(new ApiResponse(400));
             }
 
             var transaction = _mapper.Map<Transaction>(updateTransactionDto);
-            var result = await _transactionRepository.UpdateAsync(transaction);
+            var result = await _genericTransactionRepository.UpdateAsync(transaction);
 
             if (!result)
             {
-                return BadRequest(new ApiResponse(400, "Unable to update the transaction."));
+                return BadRequest(new ApiResponse(400));
             }
 
             return NoContent();
@@ -75,11 +75,11 @@ namespace FinTransact.TransactionAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTransaction(int id)
         {
-            var result = await _transactionRepository.DeleteAsync(id);
+            var result = await _genericTransactionRepository.DeleteAsync(id);
 
             if (!result)
             {
-                return NotFound(new ApiResponse(404, "Transaction not found."));
+                return NotFound(new ApiResponse(404));
             }
 
             return NoContent();

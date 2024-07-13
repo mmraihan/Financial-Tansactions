@@ -20,6 +20,7 @@ builder.Services.AddDbContext<DataContext>(options =>
 });
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 
 builder.Services.AddAutoMapper(typeof(MappingProfiles));
 
