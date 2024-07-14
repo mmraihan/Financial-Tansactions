@@ -36,13 +36,12 @@
 GitHub Link: https://github.com/mmraihan/Financial-Tansactions
 
 - Download or clone the project source code from the GitHub Link:
-
 - To run FinTransact API, change the connection string, and update the database from a migration file, you can follow these steps.
 
-- Open your ASP.NET Core API project in your preferred Integrated Development Environment (IDE) such as Visual Studio 2022
-
+- Open the FinTransact.sln solution file in Visual Studio 2022.
+- Right-click on the solution in Solution Explorer and select "Set Startup Projects..."
+- In the "Startup Project" dialog, select "Multiple startup projects."
 - Locate the appsettings.json file in  project, which typically contains configuration settings, including the database connection string. Modify the connection string to point to your desired database.
-
 - Update Database from Migration File:
 
 ## Endpoints
