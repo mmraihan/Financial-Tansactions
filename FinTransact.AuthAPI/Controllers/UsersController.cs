@@ -18,14 +18,14 @@ namespace FinTransact.AuthAPI.Controllers
         }
 
 
-        [HttpGet]
+        [HttpGet("get-all-users")]
         public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
         {
 
             return await _db.Users.ToListAsync();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("get-user/{id}")]
 
         public async Task<ActionResult<AppUser>> GetUser(int id)
         {
